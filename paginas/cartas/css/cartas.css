@@ -21,8 +21,37 @@ body {
 }
 
 .contenedor {
-    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Estilo de la carta */
+.carta {
+    width: 80%;
+    max-width: 350px;
+    min-height: 120px;
+    background: linear-gradient(135deg, #ff66b2, #ff3385);
+    color: #fff;
+    font-size: 1.6em;
+    font-weight: bold;
+    text-align: center;
     padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 6px 12px rgba(255, 102, 178, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    opacity: 0;
+    transform: rotateY(90deg);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.carta.mostrar {
+    opacity: 1;
+    transform: rotateY(0);
 }
 
 .boton {
@@ -46,39 +75,11 @@ body {
     transform: scale(0.98);
 }
 
-/* Botón de aleatorio más grande y separado */
+/* Botón aleatorio más grande */
 .boton-grande {
-    display: block;
-    margin: 30px auto 0;
+    margin-top: 20px;
     font-size: 20px;
     padding: 14px 30px;
-}
-
-/* Estilo para la carta */
-.carta {
-    margin: 20px auto;
-    padding: 20px;
-    background: #1e1e1e;
-    color: #fff;
-    border-radius: 15px;
-    width: 80%;
-    max-width: 300px;
-    min-height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5em;
-    font-weight: bold;
-    text-align: center;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    transform: scale(0.8);
-    transition: opacity 0.5s ease, transform 0.3s ease;
-}
-
-.carta.mostrar {
-    opacity: 1;
-    transform: scale(1);
 }
 
 /* Responsividad para móviles */
@@ -95,6 +96,6 @@ body {
         padding: 12px 25px;
     }
     .carta {
-        font-size: 1.3em;
+        font-size: 1.4em;
     }
 }
