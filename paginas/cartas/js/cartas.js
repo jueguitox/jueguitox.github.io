@@ -3,19 +3,21 @@ fetch('../../../../assets/cartas/cartas.json')
     .then(response => response.json())
     .then(data => {
         const cartas = data;
-        const botonSacarCarta = document.getElementById('sacar-carta-btn');
-        const botonDesafio = document.getElementById('desafio-btn');
-        const botonPregunta = document.getElementById('pregunta-btn');
-        const botonFantasia = document.getElementById('fantasia-btn');
-        const botonSensacion = document.getElementById('sensacion-btn');
+        const botones = {
+            "Desafío": document.getElementById('desafio-btn'),
+            "Pregunta": document.getElementById('pregunta-btn'),
+            "Fantasía": document.getElementById('fantasia-btn'),
+            "Sensación": document.getElementById('sensacion-btn')
+        };
+        const botonAleatorio = document.getElementById('sacar-carta-btn');
         const contenedorCarta = document.getElementById('contenedor-carta');
         const textoCarta = document.getElementById('texto-carta');
 
-        botonDesafio.addEventListener('click', () => mostrarCarta('Desafío'));
-        botonPregunta.addEventListener('click', () => mostrarCarta('Pregunta'));
-        botonFantasia.addEventListener('click', () => mostrarCarta('Fantasía'));
-        botonSensacion.addEventListener('click', () => mostrarCarta('Sensación'));
-        botonSacarCarta.addEventListener('click', mostrarCartaAleatoria);
+        Object.keys(botones).forEach(tipo => {
+            botones[tipo].addEventListener('click', () => mostrarCarta(tipo));
+        });
+
+        botonAleatorio.addEventListener('click', mostrarCartaAleatoria);
 
         function mostrarCarta(tipo) {
             const cartasFiltradas = cartas[tipo];
