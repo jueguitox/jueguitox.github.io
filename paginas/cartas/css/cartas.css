@@ -1,0 +1,108 @@
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    background-color: #2c2c2c; /* Fondo oscuro */
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.encabezado {
+    padding: 30px;
+    margin-bottom: 50px;
+    transform: translateY(-20px);
+    animation: entrar 0.5s ease-out forwards;
+}
+
+.titulo {
+    font-size: 36px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #ff66b2; /* Color rosa sensual */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.descripcion {
+    font-size: 18px;
+}
+
+.contenedor {
+    margin-top: 100px;
+    padding: 20px;
+}
+
+.boton {
+    padding: 12px 25px;
+    font-size: 18px;
+    margin: 20px;
+    background-color: #ff66b2; /* Rosa para los botones */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.boton:hover {
+    background-color: #ff3385; /* Cambio a un rosa más oscuro */
+    transform: scale(1.1);
+}
+
+.boton:active {
+    transform: scale(0.98);
+}
+
+.resultado {
+    margin: 20px auto; /* Centrar horizontalmente */
+    text-align: center;
+    font-size: 1.8em;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 300px;
+    min-height: 50px; /* Asegura que tenga altura incluso si está vacío */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: mostrarResultado 1s forwards;
+}
+
+/* Animaciones */
+@keyframes entrar {
+    0% {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes mostrarResultado {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Responsividad para móviles */
+@media screen and (max-width: 600px) {
+    .titulo {
+        font-size: 28px;
+    }
+    .descripcion {
+        font-size: 16px;
+    }
+    .boton {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+    .resultado {
+        font-size: 1.5em;
+    }
+}
