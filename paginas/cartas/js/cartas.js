@@ -22,7 +22,14 @@ fetch('../../../../assets/cartas/cartas.json')
             if (cartasFiltradas.length > 0) {
                 const indiceAleatorio = Math.floor(Math.random() * cartasFiltradas.length);
                 textoCarta.textContent = cartasFiltradas[indiceAleatorio];
-                contenedorCarta.classList.add('mostrar');
+                
+                // Reiniciar animación
+                contenedorCarta.style.opacity = "0";
+                contenedorCarta.style.transform = "rotateY(90deg)";
+                setTimeout(() => {
+                    contenedorCarta.style.opacity = "1";
+                    contenedorCarta.style.transform = "rotateY(0)";
+                }, 100);
             }
         }
 
