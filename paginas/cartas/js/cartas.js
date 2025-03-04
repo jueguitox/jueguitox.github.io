@@ -25,6 +25,11 @@ fetch('../../../../assets/cartas/cartas.json')
                 const indiceAleatorio = Math.floor(Math.random() * cartasFiltradas.length);
                 textoCarta.textContent = cartasFiltradas[indiceAleatorio];
 
+                // Mostrar la carta si no lo está
+                if (!contenedorCarta.classList.contains('visible')) {
+                    contenedorCarta.classList.add('visible');
+                }
+
                 // Activar efecto flip
                 contenedorCarta.classList.remove('flip');
                 setTimeout(() => {
