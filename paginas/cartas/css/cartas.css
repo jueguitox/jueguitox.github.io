@@ -27,16 +27,28 @@ body {
     margin-top: 20px;
 }
 
-/* Estilo de la carta */
+/* Ocultar la carta hasta que se seleccione una */
 .carta {
-    width: 300px;
+    width: 320px;
     height: 180px;
     perspective: 1000px;
-    margin-bottom: 30px;
     position: relative;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.5s ease, transform 0.3s ease;
+    margin-bottom: 50px; /* Más separación */
+    display: none; /* Oculta la carta al inicio */
 }
 
-.carta .cuerpo {
+/* Mostrar la carta cuando tiene la clase 'visible' */
+.carta.visible {
+    display: block;
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Diseño del cuerpo de la carta */
+.cuerpo {
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, #ff66b2, #ff3385);
@@ -53,7 +65,7 @@ body {
     transition: transform 0.5s ease;
 }
 
-/* Animación de flip */
+/* Efecto flip */
 .carta.flip .cuerpo {
     transform: rotateY(360deg);
 }
@@ -90,7 +102,7 @@ body {
 
 /* Botón aleatorio más grande */
 .boton-grande {
-    margin-top: 10px;
+    margin-top: 20px;
     font-size: 20px;
     padding: 14px 30px;
 }
@@ -109,10 +121,10 @@ body {
         padding: 12px 25px;
     }
     .carta {
-        width: 260px;
+        width: 280px;
         height: 160px;
     }
-    .carta .cuerpo {
+    .cuerpo {
         font-size: 1.2em;
     }
 }
