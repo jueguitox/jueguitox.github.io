@@ -9,7 +9,7 @@ body {
 
 .encabezado {
     padding: 30px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     animation: slideIn 0.5s ease-out forwards;
 }
 
@@ -29,12 +29,19 @@ body {
 
 /* Estilo de la carta */
 .carta {
-    width: 80%;
-    max-width: 350px;
-    min-height: 120px;
+    width: 300px;
+    height: 180px;
+    perspective: 1000px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.carta .cuerpo {
+    width: 100%;
+    height: 100%;
     background: linear-gradient(135deg, #ff66b2, #ff3385);
     color: #fff;
-    font-size: 1.6em;
+    font-size: 1.4em;
     font-weight: bold;
     text-align: center;
     padding: 20px;
@@ -43,21 +50,27 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 30px;
-    opacity: 0;
-    transform: rotateY(90deg);
-    transition: transform 0.5s ease, opacity 0.5s ease;
+    transition: transform 0.5s ease;
 }
 
-.carta.mostrar {
-    opacity: 1;
-    transform: rotateY(0);
+/* Animación de flip */
+.carta.flip .cuerpo {
+    transform: rotateY(360deg);
 }
 
+/* Contenedor de botones en fila */
+.botones {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* Botones */
 .boton {
-    padding: 12px 25px;
+    padding: 12px 20px;
     font-size: 18px;
-    margin: 10px;
     background-color: #ff66b2;
     color: white;
     border: none;
@@ -77,25 +90,29 @@ body {
 
 /* Botón aleatorio más grande */
 .boton-grande {
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 20px;
     padding: 14px 30px;
 }
 
-/* Responsividad para móviles */
+/* Responsividad */
 @media screen and (max-width: 600px) {
     .titulo {
         font-size: 28px;
     }
     .boton {
         font-size: 16px;
-        padding: 10px 20px;
+        padding: 10px 15px;
     }
     .boton-grande {
         font-size: 18px;
         padding: 12px 25px;
     }
     .carta {
-        font-size: 1.4em;
+        width: 260px;
+        height: 160px;
+    }
+    .carta .cuerpo {
+        font-size: 1.2em;
     }
 }
