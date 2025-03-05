@@ -1,0 +1,116 @@
+body {
+    background-color: #1a1a1a;
+    color: #e91e63;
+    font-family: 'Georgia', serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background: rgba(0, 0, 0, 0); /* Transparente */
+    padding: 20px;
+    font-size: 2em;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #e91e63; /* Rosa estático */
+    font-size: 1.5em;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    color: #ff4081;
+    text-shadow: 0 0 10px #ff80ab;
+    transform: scale(1.2);
+}
+
+/* Cuadro para los enlaces */
+.cuadro-enlace {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo semitransparente */
+    padding: 30px;
+    border-radius: 10px;
+    width: 200px; /* Tamaño fijo para los cuadrados */
+    margin: 10px;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.cuadro-enlace a {
+    color: #e91e63; /* Rosa estático */
+    font-size: 1.5em;
+    text-decoration: none;
+    display: block;
+}
+
+.cuadro-enlace a:hover {
+    color: #ff4081;
+    text-shadow: 0 0 10px #ff80ab;
+    transform: scale(1.2);
+}
+
+footer {
+    background: rgba(0, 0, 0, 0); /* Transparente */
+    padding: 20px;
+    font-size: 1.2em;
+    margin-top: auto; /* Para que el footer quede al final */
+}
+
+footer a {
+    text-decoration: none;
+    color: #e91e63; /* Rosa estático */
+    margin: 0 10px;
+    font-size: 1.2em;
+}
+
+footer a:hover {
+    color: #ff4081;
+    text-shadow: 0 0 10px #ff80ab;
+}
+
+@media (max-width: 768px) {
+    nav ul {
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    nav ul li a {
+        font-size: 1.2em;
+    }
+
+    footer p {
+        font-size: 1em;
+    }
+
+    header h1 {
+        font-size: 1.5em;
+    }
+
+    /* Ajustar tamaño del cuadro en dispositivos pequeños */
+    .cuadro-enlace {
+        width: 150px;
+        padding: 20px;
+    }
+}

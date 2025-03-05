@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartas</title>
+    <link rel="shortcut icon" href="../../../assets/iconos/ico-cartas.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/cartas.css">
+</head>
+<body>
+    <div class="encabezado">
+        <h1 class="titulo">Cartas</h1>
+    </div>
+
+    <div class="contenedor">
+        <!-- Carta (inicialmente oculta) -->
+        <div id="contenedor-carta" class="carta">
+            <div class="cuerpo">
+                <p id="texto-carta"></p>
+            </div>
+        </div>
+
+        <!-- Botones en fila -->
+        <div class="botones">
+            <button id="desafio-btn" class="boton">Desafío</button>
+            <button id="pregunta-btn" class="boton">Pregunta Íntima</button>
+            <button id="fantasia-btn" class="boton">Fantasía</button>
+            <button id="sensacion-btn" class="boton">Sensación</button>
+        </div>
+
+        <!-- Botón de carta aleatoria -->
+        <button id="sacar-carta-btn" class="boton boton-grande">Sacar Carta Aleatoria</button>
+    </div>
+
+    <script src="../js/cartas.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+    "lugares": [
+        {
+            "latitud": 42.4310,
+            "longitud": -8.6444,
+            "nombre": "Pontevedra",
+            "descripcion": "Ciudad en Galicia, España"
+        },
+        {
+            "latitud": 41.3879,
+            "longitud": 2.16992,
+            "nombre": "Barcelona",
+            "descripcion": "Ciudad costera en Cataluña"
+        }
+    ]
+}
