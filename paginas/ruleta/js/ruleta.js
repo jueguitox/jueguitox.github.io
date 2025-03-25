@@ -1,13 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
     let imagenes = [];
     let nombres = {};
+    let datosCargados = false;
     
     fetch("../../../assets/json/ruleta.json")
         .then(response => response.json())
         .then(data => {
             imagenes = Object.keys(data);
             nombres = data;
-        });
+            datosCargados = true;
+        })
+        .catch(error => console.error("Error cargando el JSON:", error));
     
     const imagenActual = document.getElementById("imagenActual");
     const botonIniciar = document.getElementById("botonIniciar");
@@ -15,7 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let intervalo;
 
     botonIniciar.addEventListener("click", () => {
-        if (imagenes.length === 0) return;
+        if (!datosCargados || imagenes.length === 0) {
+            console.error("Los datos de la ruleta no están disponibles.");
+            return;
+        }
 
         let tiempo = 100;
         let contador = 0;
@@ -27,7 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
         imagenActual.style.display = "block";
         
         intervalo = setInterval(() => {
-            let imagenSeleccionada = imagenes[contador % imagenes.length];
+            let indice = contador % imagenes.length;
+            let imagenSeleccionada = imagenes[indice];
             imagenActual.src = `../../../assets/imagenes/${imagenSeleccionada}`;
             contador++;
 
