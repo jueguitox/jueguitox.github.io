@@ -1,4 +1,3 @@
-// script.js
 document.addEventListener("DOMContentLoaded", () => {
     let imagenes = [];
     let nombres = {};
@@ -16,6 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let intervalo;
 
     botonIniciar.addEventListener("click", () => {
+        if (imagenes.length === 0) return;
+
         let tiempo = 100;
         let contador = 0;
         let duracion = 5000; // Duración total de la ruleta en milisegundos
@@ -26,12 +27,12 @@ document.addEventListener("DOMContentLoaded", () => {
         imagenActual.style.display = "block";
         
         intervalo = setInterval(() => {
-            imagenActual.src = imagenes[contador % imagenes.length];
+            let imagenSeleccionada = imagenes[contador % imagenes.length];
+            imagenActual.src = `../../../assets/imagenes/${imagenSeleccionada}`;
             contador++;
 
             if (Date.now() - inicio >= duracion) {
                 clearInterval(intervalo);
-                const imagenSeleccionada = imagenActual.src.split("/").pop();
                 nombreImagen.textContent = nombres[imagenSeleccionada] || "Desconocido";
             }
         }, tiempo);
