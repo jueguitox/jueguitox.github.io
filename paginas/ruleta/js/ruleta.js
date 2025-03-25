@@ -24,23 +24,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         let tiempo = 100;
-        let contador = 0;
         let duracion = 5000; // Duración total de la ruleta en milisegundos
         let inicio = Date.now();
+        let contador = 0;
 
         clearInterval(intervalo);
         nombreImagen.textContent = "";
         imagenActual.style.display = "block";
         
         intervalo = setInterval(() => {
-            let indice = contador % imagenes.length;
+            let indice = Math.floor(Math.random() * imagenes.length);
             let imagenSeleccionada = imagenes[indice];
             imagenActual.src = `../../../assets/imagenes/${imagenSeleccionada}`;
-            contador++;
-
+            
             if (Date.now() - inicio >= duracion) {
                 clearInterval(intervalo);
-                nombreImagen.textContent = nombres[imagenSeleccionada] || "Desconocido";
+                setTimeout(() => {
+                    imagenActual.src = `../../../assets/imagenes/${imagenSeleccionada}`;
+                    nombreImagen.textContent = nombres[imagenSeleccionada] || "Desconocido";
+                }, 500);
             }
         }, tiempo);
     });
