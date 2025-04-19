@@ -6,7 +6,7 @@ const botonDado = document.getElementById('boton-dado');
 let casillas = [];
 let posicion = 0;
 
-fetch('data/casillas.json')
+fetch("../../../assets/json/chochopoly.json")
   .then(response => response.json())
   .then(data => {
     casillas = data;
