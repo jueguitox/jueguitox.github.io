@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let imagenes = [];
     let nombres = {};
     let datosCargados = false;
-    
+
     fetch("../../../assets/json/ruleta.json")
         .then(response => response.json())
         .then(data => {
@@ -11,39 +11,47 @@ document.addEventListener("DOMContentLoaded", () => {
             datosCargados = true;
         })
         .catch(error => console.error("Error cargando el JSON:", error));
-    
+
     const imagenActual = document.getElementById("imagenActual");
     const botonIniciar = document.getElementById("botonIniciar");
     const nombreImagen = document.getElementById("nombreImagen");
-    let intervalo;
+
+    let girando = false;
 
     botonIniciar.addEventListener("click", () => {
-        if (!datosCargados || imagenes.length === 0) {
-            console.error("Los datos de la ruleta no están disponibles.");
-            return;
-        }
+        if (!datosCargados || imagenes.length === 0 || girando) return;
 
-        let tiempo = 100;
-        let duracion = 5000; // Duración total de la ruleta en milisegundos
-        let inicio = Date.now();
-        let contador = 0;
-
-        clearInterval(intervalo);
+        girando = true;
         nombreImagen.textContent = "";
         imagenActual.style.display = "block";
-        
-        intervalo = setInterval(() => {
-            let indice = Math.floor(Math.random() * imagenes.length);
-            let imagenSeleccionada = imagenes[indice];
-            imagenActual.src = `../../../assets/imagenes/${imagenSeleccionada}`;
-            
-            if (Date.now() - inicio >= duracion) {
-                clearInterval(intervalo);
-                setTimeout(() => {
-                    imagenActual.src = `../../../assets/imagenes/${imagenSeleccionada}`;
-                    nombreImagen.textContent = nombres[imagenSeleccionada] || "Desconocido";
-                }, 500);
-            }
-        }, tiempo);
+
+        let tiempo = 80;              // velocidad inicial
+        let incremento = 20;          // cuánto se frena
+        let vueltas = 25;             // cantidad de cambios
+        let contador = 0;
+        let imagenFinal = "";
+
+        function girar() {
+            imagenActual.style.opacity = 0;
+
+            setTimeout(() => {
+                const indice = Math.floor(Math.random() * imagenes.length);
+                imagenFinal = imagenes[indice];
+                imagenActual.src = `../../../assets/imagenes/${imagenFinal}`;
+                imagenActual.style.opacity = 1;
+
+                contador++;
+                tiempo += incremento;
+
+                if (contador < vueltas) {
+                    setTimeout(girar, tiempo);
+                } else {
+                    nombreImagen.textContent = nombres[imagenFinal] || "Desconocido";
+                    girando = false;
+                }
+            }, 200);
+        }
+
+        girar();
     });
 });
