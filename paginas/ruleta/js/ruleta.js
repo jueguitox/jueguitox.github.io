@@ -4,54 +4,90 @@ document.addEventListener("DOMContentLoaded", () => {
     let datosCargados = false;
 
     fetch("../../../assets/json/ruleta.json")
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => {
             imagenes = Object.keys(data);
             nombres = data;
             datosCargados = true;
-        })
-        .catch(error => console.error("Error cargando el JSON:", error));
+            prepararSlot();
+        });
 
-    const imagenActual = document.getElementById("imagenActual");
-    const botonIniciar = document.getElementById("botonIniciar");
+    const slot = document.getElementById("slot");
+    const boton = document.getElementById("botonIniciar");
     const nombreImagen = document.getElementById("nombreImagen");
 
-    let girando = false;
+    const alto = 200;
+    let offset = 0;
+    let velocidad = 0;
+    let frenando = false;
+    let imagenFinal = "";
 
-    botonIniciar.addEventListener("click", () => {
-        if (!datosCargados || imagenes.length === 0 || girando) return;
+    function prepararSlot() {
+        // duplicamos imágenes para scroll infinito
+        const total = imagenes.concat(imagenes, imagenes);
 
-        girando = true;
-        nombreImagen.textContent = "";
-        imagenActual.style.display = "block";
+        slot.innerHTML = "";
+        total.forEach(img => {
+            const i = document.createElement("img");
+            i.src = `../../../assets/imagenes/${img}`;
+            slot.appendChild(i);
+        });
+    }
 
-        let tiempo = 80;              // velocidad inicial
-        let incremento = 20;          // cuánto se frena
-        let vueltas = 25;             // cantidad de cambios
-        let contador = 0;
-        let imagenFinal = "";
+    function animar() {
+        offset += velocidad;
 
-        function girar() {
-            imagenActual.style.opacity = 0;
-
-            setTimeout(() => {
-                const indice = Math.floor(Math.random() * imagenes.length);
-                imagenFinal = imagenes[indice];
-                imagenActual.src = `../../../assets/imagenes/${imagenFinal}`;
-                imagenActual.style.opacity = 1;
-
-                contador++;
-                tiempo += incremento;
-
-                if (contador < vueltas) {
-                    setTimeout(girar, tiempo);
-                } else {
-                    nombreImagen.textContent = nombres[imagenFinal] || "Desconocido";
-                    girando = false;
-                }
-            }, 200);
+        if (offset >= imagenes.length * alto) {
+            offset = 0;
         }
 
-        girar();
+        slot.style.transform = `translateY(${-offset}px)`;
+
+        // BLUR dinámico según velocidad
+        const blur = Math.min(velocidad / 2, 20);
+        slot.style.filter = `blur(${blur}px)`;
+
+        if (frenando) {
+            velocidad *= 0.97;
+
+            if (velocidad < 0.5) {
+                velocidad = 0;
+                finalizar();
+                return;
+            }
+        }
+
+        requestAnimationFrame(animar);
+    }
+
+    function finalizar() {
+        const index = Math.floor(offset / alto);
+        const ajuste = index * alto;
+
+        slot.style.filter = "blur(0px)";
+        slot.style.transition = "transform 0.4s ease-out";
+        slot.style.transform = `translateY(${-ajuste}px)`;
+
+        imagenFinal = imagenes[index % imagenes.length];
+        nombreImagen.textContent = nombres[imagenFinal] || "Desconocido";
+
+        setTimeout(() => {
+            slot.style.transition = "none";
+        }, 400);
+    }
+
+    boton.addEventListener("click", () => {
+        if (!datosCargados) return;
+
+        nombreImagen.textContent = "";
+        offset = 0;
+        velocidad = 25;
+        frenando = false;
+
+        requestAnimationFrame(animar);
+
+        setTimeout(() => {
+            frenando = true;
+        }, 2500);
     });
 });
