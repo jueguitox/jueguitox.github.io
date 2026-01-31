@@ -37,57 +37,61 @@ document.addEventListener("DOMContentLoaded", () => {
     function animar() {
         offset += velocidad;
 
-        if (offset >= imagenes.length * alto) {
-            offset = 0;
+        const totalAltura = imagenes.length * alto;
+        if (offset >= totalAltura) {
+            offset = offset % totalAltura;
         }
 
         slot.style.transform = `translateY(${-offset}px)`;
 
-        // BLUR dinámico según velocidad
-        const blur = Math.min(velocidad / 2, 20);
+        const blur = Math.min(velocidad * 0.8, 18);
         slot.style.filter = `blur(${blur}px)`;
 
         if (frenando) {
-            velocidad *= 0.97;
+            velocidad *= 0.96;
 
-            if (velocidad < 0.5) {
-                velocidad = 0;
-                finalizar();
+            if (velocidad < 0.3) {
+                cancelAnimationFrame(frame);
+                ajustarFinal();
                 return;
             }
         }
 
-        requestAnimationFrame(animar);
+        frame = requestAnimationFrame(animar);
     }
 
-    function finalizar() {
-        const index = Math.floor(offset / alto);
-        const ajuste = index * alto;
 
+    function ajustarFinal() {
+        // redondeo EXACTO al bloque más cercano
+        const index = Math.round(offset / alto);
+        offset = index * alto;
+
+        slot.style.transition = "transform 0.35s ease-out";
         slot.style.filter = "blur(0px)";
-        slot.style.transition = "transform 0.4s ease-out";
-        slot.style.transform = `translateY(${-ajuste}px)`;
+        slot.style.transform = `translateY(${-offset}px)`;
 
-        imagenFinal = imagenes[index % imagenes.length];
+        const imagenFinal = imagenes[index % imagenes.length];
         nombreImagen.textContent = nombres[imagenFinal] || "Desconocido";
 
         setTimeout(() => {
             slot.style.transition = "none";
-        }, 400);
+        }, 350);
     }
+
 
     boton.addEventListener("click", () => {
         if (!datosCargados) return;
 
         nombreImagen.textContent = "";
         offset = 0;
-        velocidad = 25;
+        velocidad = 24;
         frenando = false;
 
-        requestAnimationFrame(animar);
+        frame = requestAnimationFrame(animar);
 
         setTimeout(() => {
             frenando = true;
         }, 2500);
     });
+
 });
