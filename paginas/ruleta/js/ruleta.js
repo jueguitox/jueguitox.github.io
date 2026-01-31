@@ -62,12 +62,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function ajustarFinal() {
-        // redondeo EXACTO al bloque más cercano
-        const index = Math.round(offset / alto);
+        const index = Math.floor(offset / alto);
         offset = index * alto;
 
         slot.style.transition = "transform 0.35s ease-out";
-        slot.style.filter = "blur(0px)";
+        slot.style.filter = "blur(0)";
         slot.style.transform = `translateY(${-offset}px)`;
 
         const imagenFinal = imagenes[index % imagenes.length];
