@@ -3,6 +3,24 @@ document.addEventListener("DOMContentLoaded", () => {
     let nombres = {};
     let datosCargados = false;
 
+    const slot = document.getElementById("slot");
+    const boton = document.getElementById("botonIniciar");
+    const nombreImagen = document.getElementById("nombreImagen");
+
+    let alto = 200;
+    let offset = 0;
+    let velocidad = 0;
+    let frenando = false;
+    let frame;
+
+    // 🔀 Mezcla Fisher-Yates
+    function mezclarArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
     fetch("../../../assets/json/ruleta.json")
         .then(res => res.json())
         .then(data => {
@@ -12,24 +30,16 @@ document.addEventListener("DOMContentLoaded", () => {
             prepararSlot();
         });
 
-    const slot = document.getElementById("slot");
-    const boton = document.getElementById("botonIniciar");
-    const nombreImagen = document.getElementById("nombreImagen");
-
-    const alto = 200;
-    let offset = 0;
-    let velocidad = 0;
-    let frenando = false;
-    let imagenFinal = "";
-
     function prepararSlot() {
-        // duplicamos imágenes para scroll infinito
+        slot.innerHTML = "";
+
+        // duplicamos para scroll continuo
         const total = imagenes.concat(imagenes, imagenes);
 
-        slot.innerHTML = "";
         total.forEach(img => {
             const i = document.createElement("img");
             i.src = `../../../assets/imagenes/${img}`;
+            i.style.height = alto + "px";
             slot.appendChild(i);
         });
     }
@@ -39,20 +49,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const totalAltura = imagenes.length * alto;
         if (offset >= totalAltura) {
-            offset = offset % totalAltura;
+            offset %= totalAltura;
         }
 
         slot.style.transform = `translateY(${-offset}px)`;
 
+        // blur dinámico
         const blur = Math.min(velocidad * 0.8, 18);
         slot.style.filter = `blur(${blur}px)`;
 
         if (frenando) {
             velocidad *= 0.96;
 
-            if (velocidad < 0.3) {
-                cancelAnimationFrame(frame);
-                ajustarFinal();
+            if (velocidad < 0.4) {
+                cancelarYFinalizar();
                 return;
             }
         }
@@ -60,30 +70,35 @@ document.addEventListener("DOMContentLoaded", () => {
         frame = requestAnimationFrame(animar);
     }
 
+    function cancelarYFinalizar() {
+        cancelAnimationFrame(frame);
 
-    function ajustarFinal() {
-        const index = Math.floor(offset / alto);
+        const index = Math.floor(offset / alto) % imagenes.length;
         offset = index * alto;
 
-        slot.style.transition = "transform 0.35s ease-out";
+        slot.style.transition = "transform 0.4s ease-out";
         slot.style.filter = "blur(0)";
         slot.style.transform = `translateY(${-offset}px)`;
 
-        const imagenFinal = imagenes[index % imagenes.length];
-        nombreImagen.textContent = nombres[imagenFinal] || "Desconocido";
+        nombreImagen.textContent = nombres[imagenes[index]] || "Desconocido";
 
         setTimeout(() => {
             slot.style.transition = "none";
-        }, 350);
+        }, 400);
     }
-
 
     boton.addEventListener("click", () => {
         if (!datosCargados) return;
 
         nombreImagen.textContent = "";
+
+        // 🔥 CLAVE: desordenamos imágenes antes de girar
+        mezclarArray(imagenes);
+
+        prepararSlot();
+
         offset = 0;
-        velocidad = 24;
+        velocidad = 25;
         frenando = false;
 
         frame = requestAnimationFrame(animar);
@@ -92,5 +107,4 @@ document.addEventListener("DOMContentLoaded", () => {
             frenando = true;
         }, 2500);
     });
-
 });
