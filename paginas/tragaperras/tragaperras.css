@@ -25,7 +25,7 @@
                 radial-gradient(ellipse at 20% 15%, rgba(255,210,63,0.07) 0%, transparent 55%),
                 radial-gradient(ellipse at 80% 85%, rgba(255,107,53,0.06) 0%, transparent 55%);
         }
-
+ 
         .back-btn {
             position:fixed; top:18px; left:18px; z-index:100;
             display:flex; align-items:center; gap:6px;
@@ -37,7 +37,7 @@
         }
         .back-btn:hover { color:var(--yellow); border-color:rgba(255,210,63,0.3); }
         .back-btn::before { content:'←'; }
-
+ 
         header {
             position:relative; z-index:10; width:100%;
             text-align:center; padding:60px 20px 22px;
@@ -57,13 +57,13 @@
             font-size:0.65rem; letter-spacing:0.35em;
             text-transform:uppercase; color:var(--muted2); margin-top:5px;
         }
-
+ 
         .contenedor {
             position:relative; z-index:10; width:100%; max-width:600px;
             padding:36px 20px 50px;
             display:flex; flex-direction:column; align-items:center; gap:28px; flex:1;
         }
-
+ 
         /* MÁQUINA */
         .maquina {
             width:100%; max-width:420px;
@@ -82,7 +82,7 @@
             background:radial-gradient(ellipse at 50% 0%, rgba(255,210,63,0.04) 0%, transparent 60%);
             pointer-events:none;
         }
-
+ 
         /* LUCES DECORATIVAS */
         .luces {
             display:flex; justify-content:space-between; margin-bottom:16px;
@@ -103,12 +103,12 @@
             0%,100% { opacity:1; transform:scale(1); }
             50% { opacity:0.3; transform:scale(0.7); }
         }
-
+ 
         /* RODILLOS */
         .rodillos {
             display:flex; gap:10px; justify-content:center; margin-bottom:16px;
         }
-
+ 
         .rodillo-wrap {
             display:flex; flex-direction:column; align-items:center; gap:6px;
         }
@@ -116,7 +116,7 @@
             font-size:0.52rem; letter-spacing:0.3em; text-transform:uppercase;
             color:rgba(255,210,63,0.4);
         }
-
+ 
         .rodillo {
             width:100px; height:100px;
             background:linear-gradient(145deg,#0d0800,#1a1200);
@@ -126,40 +126,49 @@
             position:relative; overflow:hidden;
             box-shadow:inset 0 2px 8px rgba(0,0,0,0.5);
         }
-
+ 
         .rodillo-inner {
             display:flex; flex-direction:column; align-items:center;
-            position:absolute; width:100%;
+            position:absolute; width:100%; top:0; left:0;
             transition:none;
+            will-change: transform;
         }
-
+ 
         .rodillo-symbol {
             width:100%; height:100px;
             display:flex; align-items:center; justify-content:center;
-            font-size:2.4rem; flex-shrink:0;
+            font-size:2.4rem; flex-shrink:0; line-height:1;
+            user-select:none;
         }
-
-        /* Línea central */
+ 
+        /* Líneas que enmarcan el símbolo central */
         .rodillo::before,
         .rodillo::after {
             content:''; position:absolute; left:0; right:0; height:1px;
-            background:rgba(255,210,63,0.15); z-index:5; pointer-events:none;
+            background:rgba(255,210,63,0.25); z-index:5; pointer-events:none;
         }
-        .rodillo::before { top:32px; }
-        .rodillo::after  { bottom:32px; }
-
-        /* Gradiente fade top/bottom */
+        .rodillo::before { top:0; }
+        .rodillo::after  { bottom:0; }
+ 
+        /* Gradiente fade top/bottom - más sutil al ser 1 símbolo */
         .rodillo-fade {
             position:absolute; inset:0; z-index:4; pointer-events:none;
             background:linear-gradient(
                 to bottom,
-                rgba(13,8,0,0.7) 0%,
-                transparent 35%,
-                transparent 65%,
-                rgba(13,8,0,0.7) 100%
+                rgba(13,8,0,0.55) 0%,
+                transparent 28%,
+                transparent 72%,
+                rgba(13,8,0,0.55) 100%
             );
         }
-
+ 
+        /* Highlight del símbolo central */
+        .rodillo-highlight {
+            position:absolute; inset:8px; border-radius:8px; z-index:3; pointer-events:none;
+            border:1px solid rgba(255,210,63,0.18);
+            box-shadow:inset 0 0 12px rgba(255,210,63,0.06);
+        }
+ 
         /* RESULTADO VISUAL */
         .resultado-linea {
             display:flex; gap:10px; justify-content:center; align-items:center;
@@ -173,7 +182,7 @@
             opacity:0; transition:opacity 0.4s;
         }
         .resultado-badge.visible { opacity:1; }
-
+ 
         /* RESULTADO TEXTO */
         .result-card {
             width:100%; max-width:420px;
@@ -186,7 +195,7 @@
             display:none;
         }
         .result-card.visible { display:block; opacity:1; transform:scale(1) translateY(0); }
-
+ 
         .result-header {
             padding:12px 20px; border-bottom:1px solid var(--border);
             display:flex; align-items:center; gap:8px;
@@ -207,7 +216,7 @@
             margin-top:10px; font-size:0.72rem; color:var(--orange);
             letter-spacing:0.1em;
         }
-
+ 
         /* MODO BUTTONS */
         .modo-row {
             display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:center;
@@ -224,7 +233,7 @@
             border-color:rgba(255,210,63,0.4); color:var(--yellow);
         }
         .btn-modo:hover { opacity:1; }
-
+ 
         /* PULL LEVER */
         .btn-primary {
             position:relative; padding:15px 50px;
@@ -244,14 +253,14 @@
         .btn-primary:hover span { color:#000; }
         .btn-primary:active { transform:scale(0.96); }
         .btn-primary:disabled { opacity:0.3; cursor:not-allowed; }
-
+ 
         /* Animación jackpot */
         @keyframes jackpot {
             0%,100% { text-shadow:0 0 20px rgba(255,210,63,0.7); }
             50% { text-shadow:0 0 40px rgba(255,210,63,1),0 0 80px rgba(255,107,53,0.8); }
         }
         .jackpot { animation:jackpot 0.5s ease-in-out 4; }
-
+ 
         footer {
             width:100%; position:relative; z-index:10;
             padding:18px 20px; border-top:1px solid var(--border);
@@ -262,10 +271,8 @@
             letter-spacing:0.2em; text-transform:uppercase; transition:color 0.3s;
         }
         footer a:hover { color:var(--yellow); }
-
+ 
         @media (max-width:480px) {
-            .rodillo { width:80px; height:80px; }
-            .rodillo-symbol { height:80px; font-size:2rem; }
-            .rodillo::before { top:24px; }
-            .rodillo::after  { bottom:24px; }
+            .rodillo { width:85px; height:100px; }
+            .rodillo-symbol { font-size:2rem; }
         }
