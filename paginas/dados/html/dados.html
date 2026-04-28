@@ -3,20 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dados</title>
+    <title>Dados — Jueguitox</title>
     <link rel="shortcut icon" href="../../../assets/iconos/ico-dados.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/dados.css">
 </head>
 <body>
-    <div class="contenedor">
+    <a href="../../../index.html" class="back-btn">Inicio</a>
+
+    <header>
+        <span class="header-eyebrow">✦ Jueguitox</span>
         <h1>Dados</h1>
-        <div class="dados">
-            <div class="dado" id="accion">?</div>
-            <div class="dado" id="cuerpo">?</div>
+        <p class="header-sub">Acción · Cuerpo · Modo</p>
+    </header>
+
+    <div class="contenedor">
+        <div class="modo-strip">
+            <span class="modo-label">Modo:</span>
+            <span id="modo-actual" class="modo-valor">Normal</span>
         </div>
-        <button id="btnLanzar" onclick="tirarDados()" disabled>Lanzar Dados</button>
-        <button id="cambiarModo" onclick="cambiarModo()">Modo: Normal</button>
+
+        <div class="dados">
+            <div class="dado-wrap">
+                <span class="dado-etiqueta">Acción</span>
+                <div class="dado" id="accion">
+                    <span class="dado-placeholder">?</span>
+                </div>
+            </div>
+            <div class="dado-separator">✦</div>
+            <div class="dado-wrap">
+                <span class="dado-etiqueta">Cuerpo</span>
+                <div class="dado" id="cuerpo">
+                    <span class="dado-placeholder">?</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="btns-row">
+            <button id="btnLanzar" class="btn-primary" onclick="tirarDados()" disabled>
+                <span>🎲 Lanzar</span>
+            </button>
+            <button id="cambiarModo" class="btn-mode" onclick="cambiarModo()">
+                <span>Modo Normal</span>
+            </button>
+        </div>
     </div>
+
+    <footer>
+        <a href="../../../paginas/html/acerca.html">Acerca de</a>
+        <a href="../../../paginas/html/condiciones.html">Condiciones</a>
+        <a href="../../../paginas/html/privacidad.html">Privacidad</a>
+    </footer>
+
     <script src="../js/dados.js"></script>
 </body>
 </html>
