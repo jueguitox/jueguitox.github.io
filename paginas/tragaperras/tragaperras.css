@@ -15,7 +15,8 @@
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
             background:var(--deep); color:var(--text);
-            font-family:'DM Sans',sans-serif;
+            font-family:'DM Sans', "Apple Color Emoji","Segoe UI Emoji",
+                         "Noto Color Emoji","Segoe UI Symbol",sans-serif;
             min-height:100vh; display:flex; flex-direction:column;
             align-items:center; overflow-x:hidden;
         }
@@ -139,6 +140,8 @@
             display:flex; align-items:center; justify-content:center;
             font-size:2.4rem; flex-shrink:0; line-height:1;
             user-select:none;
+            font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",
+                         "Android Emoji","Twemoji Mozilla","Segoe UI Symbol",sans-serif;
         }
  
         /* Líneas que enmarcan el símbolo central */
