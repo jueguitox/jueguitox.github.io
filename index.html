@@ -8,7 +8,255 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        :root {
+            --hot-pink: #ff2d6b;
+            --orange: #ff6b35;
+            --cyan: #00d4ff;
+            --yellow: #ffd23f;
+            --deep: #08040a;
+            --text: #fff0f5;
+            --muted: rgba(255,255,255,0.45);
+            --muted2: rgba(255,255,255,0.22);
+            --border: rgba(255,255,255,0.07);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+        body {
+            background:var(--deep); color:var(--text);
+            font-family:'DM Sans',sans-serif;
+            min-height:100vh; overflow-x:hidden;
+        }
+
+        /* FONDO */
+        .bg-layer { position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+        .bg-blob {
+            position:absolute; border-radius:50%;
+            filter:blur(90px); opacity:0.1;
+            animation:floatBlob linear infinite;
+        }
+        .bg-blob:nth-child(1) { width:600px;height:600px;background:var(--hot-pink);top:-150px;left:-150px;animation-duration:22s; }
+        .bg-blob:nth-child(2) { width:450px;height:450px;background:var(--cyan);bottom:-100px;right:-100px;animation-duration:28s;animation-direction:reverse; }
+        .bg-blob:nth-child(3) { width:350px;height:350px;background:var(--orange);top:45%;left:35%;animation-duration:19s;opacity:0.06; }
+        @keyframes floatBlob {
+            0%,100%{transform:translate(0,0) scale(1);}
+            33%{transform:translate(50px,-40px) scale(1.06);}
+            66%{transform:translate(-25px,50px) scale(0.94);}
+        }
+        .noise {
+            position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.025;
+            background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size:180px 180px;
+        }
+
+        .page-wrap { position:relative;z-index:10;min-height:100vh;display:flex;flex-direction:column; }
+
+        /* HEADER */
+        header { padding:36px 40px 0; display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+        .logo-eyebrow { display:block;font-size:0.62rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--hot-pink);opacity:0.85;margin-bottom:2px; }
+        header h1 {
+            font-family:'Bebas Neue',sans-serif;
+            font-size:clamp(4.5rem,11vw,9rem);
+            letter-spacing:0.03em;line-height:0.88;color:var(--text);
+            text-shadow:0 0 15px rgba(255,45,107,0.9),0 0 50px rgba(255,45,107,0.45);
+            animation:glow 6s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from{text-shadow:0 0 15px rgba(255,45,107,0.9),0 0 50px rgba(255,45,107,0.45);}
+            to  {text-shadow:0 0 25px rgba(255,45,107,1),0 0 80px rgba(255,45,107,0.6),0 0 120px rgba(255,45,107,0.3);}
+        }
+        .header-badge {
+            display:inline-flex;align-items:center;gap:7px;
+            background:rgba(255,45,107,0.1);border:1px solid rgba(255,45,107,0.28);
+            border-radius:100px;padding:5px 13px;
+            font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--hot-pink);
+            margin-top:12px;
+        }
+        .badge-dot {
+            width:6px;height:6px;border-radius:50%;
+            background:var(--hot-pink);box-shadow:0 0 8px var(--hot-pink);
+            animation:pulse 2s ease infinite;
+        }
+        @keyframes pulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.5);opacity:.5;}}
+        .header-right { padding-bottom:8px;text-align:right; }
+        .games-count { font-family:'Bebas Neue',sans-serif;font-size:0.9rem;letter-spacing:0.2em;color:rgba(255,255,255,0.18); }
+
+        /* DIVIDER */
+        .divider { padding:18px 40px 0;display:flex;align-items:center;gap:14px; }
+        .div-line { flex:1;height:1px;background:linear-gradient(90deg,rgba(255,45,107,0.35),transparent); }
+        .div-line.r { background:linear-gradient(90deg,transparent,rgba(0,212,255,0.35)); }
+        .div-text { font-size:0.58rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--muted); }
+
+        /* MAIN */
+        main { flex:1;padding:28px 30px 50px; }
+
+        /* GRID MAGAZINE 10 juegos */
+        .games-grid {
+            display:grid;
+            grid-template-columns:repeat(12,1fr);
+            grid-auto-rows:80px;
+            gap:14px;
+            max-width:1100px;
+            margin:0 auto;
+        }
+
+        /* Layout asimétrico para 10 juegos */
+        .gc-1  { grid-column:1/5;  grid-row:1/4; }   /* Grande izda */
+        .gc-2  { grid-column:5/8;  grid-row:1/3; }   /* Mediana */
+        .gc-3  { grid-column:8/10; grid-row:1/3; }   /* Pequeña */
+        .gc-4  { grid-column:10/13;grid-row:1/5; }   /* Alta derecha */
+        .gc-5  { grid-column:5/7;  grid-row:3/5; }   /* Pequeña */
+        .gc-6  { grid-column:7/10; grid-row:3/5; }   /* Mediana */
+        .gc-7  { grid-column:1/4;  grid-row:4/6; }   /* Mediana */
+        .gc-8  { grid-column:4/7;  grid-row:5/7; }   /* Ancha */
+        .gc-9  { grid-column:7/10; grid-row:5/7; }   /* Mediana */
+        .gc-10 { grid-column:10/13;grid-row:5/7; }   /* Mediana */
+
+        /* CARD BASE */
+        .game-card {
+            position:relative;border-radius:18px;overflow:hidden;
+            cursor:pointer;text-decoration:none;display:block;
+            transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.35s ease;
+            animation:cardIn 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
+        }
+        .gc-1  {animation-delay:0.05s;} .gc-2  {animation-delay:0.10s;} .gc-3  {animation-delay:0.15s;}
+        .gc-4  {animation-delay:0.20s;} .gc-5  {animation-delay:0.25s;} .gc-6  {animation-delay:0.30s;}
+        .gc-7  {animation-delay:0.35s;} .gc-8  {animation-delay:0.40s;} .gc-9  {animation-delay:0.45s;}
+        .gc-10 {animation-delay:0.50s;}
+        @keyframes cardIn {
+            from{opacity:0;transform:translateY(28px) scale(.94);}
+            to  {opacity:1;transform:translateY(0) scale(1);}
+        }
+
+        /* Fondos */
+        .gc-1  {background:linear-gradient(145deg,#1f000e,#2c0018,#180008);}
+        .gc-2  {background:linear-gradient(145deg,#001422,#002035,#00101a);}
+        .gc-3  {background:linear-gradient(145deg,#0e1800,#1c2a00,#090e00);}
+        .gc-4  {background:linear-gradient(145deg,#180700,#260f00,#0f0400);}
+        .gc-5  {background:linear-gradient(145deg,#060018,#0c0028,#030010);}
+        .gc-6  {background:linear-gradient(145deg,#001816,#002522,#000e0c);}
+        .gc-7  {background:linear-gradient(145deg,#1a0a00,#260f00,#110600);}
+        .gc-8  {background:linear-gradient(145deg,#001818,#002020,#000f0f);}
+        .gc-9  {background:linear-gradient(145deg,#0d0000,#1e0000,#080000);}
+        .gc-10 {background:linear-gradient(145deg,#001800,#002800,#000f00);}
+
+        /* Colores neon */
+        .gc-1  {--cn:#ff2d6b;} .gc-2  {--cn:#00d4ff;} .gc-3  {--cn:#7fff00;}
+        .gc-4  {--cn:#ff6b35;} .gc-5  {--cn:#bf5fff;} .gc-6  {--cn:#00ffb3;}
+        .gc-7  {--cn:#ffd23f;} .gc-8  {--cn:#00d4ff;} .gc-9  {--cn:#ff2d6b;}
+        .gc-10 {--cn:#00ffb3;}
+
+        /* Borde neon */
+        .game-card::before {
+            content:'';position:absolute;inset:0;border-radius:18px;padding:1.5px;
+            background:linear-gradient(135deg,var(--cn) 0%,rgba(255,255,255,0.04) 50%,transparent 100%);
+            -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+            -webkit-mask-composite:xor;mask-composite:exclude;
+            opacity:0.4;transition:opacity 0.3s;
+        }
+        .game-card::after {
+            content:'';position:absolute;inset:0;
+            background:radial-gradient(ellipse at 25% 25%,var(--cn) 0%,transparent 60%);
+            opacity:0;transition:opacity 0.4s;
+        }
+        .game-card:hover {
+            transform:translateY(-10px) scale(1.025);
+            box-shadow:0 25px 60px rgba(0,0,0,0.65),0 0 35px color-mix(in srgb,var(--cn) 25%,transparent);
+        }
+        .game-card:hover::before { opacity:1; }
+        .game-card:hover::after  { opacity:0.07; }
+        .game-card:active { transform:translateY(-5px) scale(1.01); }
+
+        /* CARD INNER */
+        .card-inner {
+            position:relative;z-index:2;height:100%;padding:18px;
+            display:flex;flex-direction:column;justify-content:space-between;
+        }
+        .card-top { display:flex;justify-content:space-between;align-items:flex-start; }
+        .card-emoji {
+            font-size:2rem;line-height:1;
+            filter:drop-shadow(0 0 10px var(--cn));
+            transition:transform 0.3s ease;
+        }
+        .game-card:hover .card-emoji { transform:scale(1.2) rotate(-8deg); }
+        .card-tag {
+            font-size:0.5rem;letter-spacing:0.28em;text-transform:uppercase;
+            color:var(--cn);background:rgba(255,255,255,0.05);
+            border:1px solid rgba(255,255,255,0.07);padding:3px 8px;border-radius:100px;
+        }
+        .card-bottom { display:flex;flex-direction:column;gap:3px; }
+        .card-name {
+            font-family:'Bebas Neue',sans-serif;
+            font-size:clamp(1.3rem,2.2vw,2rem);
+            letter-spacing:0.05em;line-height:1;color:var(--text);
+            text-shadow:0 0 25px var(--cn),0 0 50px var(--cn);
+            transition:text-shadow 0.3s;
+        }
+        .game-card:hover .card-name { text-shadow:0 0 35px var(--cn),0 0 70px var(--cn); }
+        .card-desc { font-size:0.66rem;color:rgba(255,255,255,0.35);font-weight:300;letter-spacing:0.03em; }
+        .card-arrow {
+            position:absolute;bottom:16px;right:16px;
+            font-size:1rem;color:var(--cn);
+            opacity:0;transform:translate(-6px,6px);
+            transition:all 0.3s ease;text-shadow:0 0 10px var(--cn);
+        }
+        .game-card:hover .card-arrow { opacity:1;transform:translate(0,0); }
+
+        /* Ajustes tarjetas grandes */
+        .gc-1 .card-emoji, .gc-4 .card-emoji { font-size:2.6rem; }
+        .gc-1 .card-name  { font-size:clamp(1.8rem,3vw,2.8rem); }
+        .gc-4 .card-name  { font-size:clamp(1.6rem,2.5vw,2.4rem); }
+
+        /* FOOTER */
+        footer {
+            position:relative;z-index:10;padding:18px 40px;
+            border-top:1px solid rgba(255,255,255,0.05);
+            display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+        }
+        .footer-links { display:flex;gap:20px; }
+        footer a {
+            text-decoration:none;color:var(--muted);font-size:0.62rem;
+            letter-spacing:0.2em;text-transform:uppercase;transition:color 0.3s;
+        }
+        footer a:hover { color:var(--hot-pink); }
+        #texto-footer { font-size:0.58rem;color:rgba(255,255,255,0.18);letter-spacing:0.12em; }
+
+        /* RESPONSIVE */
+        @media (max-width:900px) {
+            .games-grid { grid-template-columns:repeat(6,1fr);grid-auto-rows:90px;gap:12px; }
+            .gc-1  {grid-column:1/4;grid-row:1/3;}
+            .gc-2  {grid-column:4/7;grid-row:1/3;}
+            .gc-3  {grid-column:1/3;grid-row:3/5;}
+            .gc-4  {grid-column:3/5;grid-row:3/6;}
+            .gc-5  {grid-column:5/7;grid-row:3/5;}
+            .gc-6  {grid-column:1/3;grid-row:5/7;}
+            .gc-7  {grid-column:3/5;grid-row:6/8;}  /* debajo de gc-4 */
+            .gc-8  {grid-column:5/7;grid-row:5/7;}
+            .gc-9  {grid-column:1/4;grid-row:7/9;}
+            .gc-10 {grid-column:4/7;grid-row:7/9;}
+        }
+
+        @media (max-width:560px) {
+            header { padding:22px 18px 0; }
+            main { padding:20px 14px 40px; }
+            footer { padding:16px 18px; }
+            .divider { padding:14px 18px 0; }
+            .games-grid { grid-template-columns:1fr 1fr;grid-auto-rows:110px;gap:10px; }
+            .gc-1  {grid-column:1/3;grid-row:1/2;}
+            .gc-2  {grid-column:1/2;grid-row:2/3;}
+            .gc-3  {grid-column:2/3;grid-row:2/4;}
+            .gc-4  {grid-column:1/2;grid-row:3/4;}
+            .gc-5  {grid-column:1/2;grid-row:4/5;}
+            .gc-6  {grid-column:2/3;grid-row:4/5;}
+            .gc-7  {grid-column:1/3;grid-row:5/6;}
+            .gc-8  {grid-column:1/2;grid-row:6/7;}
+            .gc-9  {grid-column:2/3;grid-row:5/6;}
+            .gc-10 {grid-column:2/3;grid-row:6/7;}
+            .card-name { font-size:1.3rem !important; }
+            .card-inner { padding:12px; }
+            .card-emoji { font-size:1.7rem !important; }
+        }
+    </style>
 </head>
 <body>
     <div class="bg-layer">
@@ -156,7 +404,7 @@
                 </div>
             </nav>
         </main>
-        <script src="../js/script.js"></script>
+
         <footer>
             <div class="footer-links">
                 <a href="paginas/html/acerca.html">Acerca de</a>
