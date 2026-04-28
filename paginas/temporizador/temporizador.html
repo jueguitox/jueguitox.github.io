@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporizador — Jueguitox</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="temporizador.css">
+</head>
+<body>
+    <a href="../../../index.html" class="back-btn">Inicio</a>
+
+    <header>
+        <span class="header-eyebrow">✦ Jueguitox</span>
+        <h1>Temporizador</h1>
+        <p class="header-sub">El tiempo manda</p>
+    </header>
+
+    <div class="contenedor">
+        <div class="reto-card">
+            <span class="reto-label">Reto activo</span>
+            <p id="texto-reto">Pulsa "Nuevo Reto" para empezar...</p>
+        </div>
+
+        <div class="timer-wrap">
+            <svg class="timer-svg" viewBox="0 0 200 200">
+                <circle class="timer-bg"   cx="100" cy="100" r="90"/>
+                <circle class="timer-ring" cx="100" cy="100" r="90" id="timer-ring"/>
+            </svg>
+            <div class="timer-center">
+                <span id="timer-display">00:00</span>
+                <span class="timer-sub">tiempo</span>
+            </div>
+        </div>
+
+        <div class="duracion-row">
+            <span class="duracion-label">Duración:</span>
+            <button class="btn-dur" data-seg="30">30s</button>
+            <button class="btn-dur activo" data-seg="60">1 min</button>
+            <button class="btn-dur" data-seg="120">2 min</button>
+            <button class="btn-dur" data-seg="180">3 min</button>
+            <button class="btn-dur" data-seg="300">5 min</button>
+        </div>
+
+        <p id="msg-fin"></p>
+
+        <div class="controles">
+            <button class="btn-secondary" id="btn-nuevo">✦ Nuevo Reto</button>
+            <button class="btn-primary"   id="btn-iniciar"><span id="iniciar-txt">Iniciar</span></button>
+        </div>
+    </div>
+
+    <footer>
+        <a href="../../../paginas/html/acerca.html">Acerca de</a>
+        <a href="../../../paginas/html/condiciones.html">Condiciones</a>
+        <a href="../../../paginas/html/privacidad.html">Privacidad</a>
+    </footer>
+    <script src="temporizador.js"></script>
+</body>
+</html>

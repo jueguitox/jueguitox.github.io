@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tragaperras — Jueguitox</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="tragaperras.css">
+</head>
+<body>
+    <a href="../../../index.html" class="back-btn">Inicio</a>
+
+    <header>
+        <span class="eyebrow">✦ Jueguitox</span>
+        <h1>Tragaperras</h1>
+        <p class="header-sub">Acciones · Zonas · Tiempo</p>
+    </header>
+
+    <div class="contenedor">
+        <div class="modo-row">
+            <span class="modo-lbl">Nivel:</span>
+            <button class="btn-modo activo" data-modo="suave">Suave</button>
+            <button class="btn-modo" data-modo="picante">Picante 🌶</button>
+            <button class="btn-modo" data-modo="salvaje">Salvaje 🔥</button>
+        </div>
+
+        <!-- MÁQUINA -->
+        <div class="maquina" id="maquina">
+            <div class="luces">
+                <div class="luz"></div><div class="luz"></div><div class="luz"></div>
+                <div class="luz"></div><div class="luz"></div><div class="luz"></div>
+            </div>
+
+            <div class="rodillos">
+                <div class="rodillo-wrap">
+                    <span class="rodillo-lbl">Acción</span>
+                    <div class="rodillo" id="r1">
+                        <div class="rodillo-inner" id="ri1"></div>
+                        <div class="rodillo-fade"></div>
+                    </div>
+                </div>
+                <div class="rodillo-wrap">
+                    <span class="rodillo-lbl">Zona</span>
+                    <div class="rodillo" id="r2">
+                        <div class="rodillo-inner" id="ri2"></div>
+                        <div class="rodillo-fade"></div>
+                    </div>
+                </div>
+                <div class="rodillo-wrap">
+                    <span class="rodillo-lbl">Tiempo</span>
+                    <div class="rodillo" id="r3">
+                        <div class="rodillo-inner" id="ri3"></div>
+                        <div class="rodillo-fade"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resultado-linea">
+                <div class="resultado-badge" id="result-badge">Girando...</div>
+            </div>
+        </div>
+
+        <div class="result-card" id="result-card">
+            <div class="result-header">
+                <div class="result-dot"></div>
+                <span class="result-lbl" id="result-lbl">✦ Tu combinación</span>
+            </div>
+            <div class="result-body">
+                <p id="result-texto"></p>
+                <p id="result-combo"></p>
+            </div>
+        </div>
+
+        <button class="btn-primary" id="btn-tirar"><span>🎰 ¡Tirar!</span></button>
+    </div>
+
+    <footer>
+        <a href="../../../paginas/html/acerca.html">Acerca de</a>
+        <a href="../../../paginas/html/condiciones.html">Condiciones</a>
+        <a href="../../../paginas/html/privacidad.html">Privacidad</a>
+    </footer>
+
+    <script src="tragaperras.js"></script>
+</body>
+</html>

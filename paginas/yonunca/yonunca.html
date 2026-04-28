@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yo Nunca — Jueguitox</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="yonunca.css">
+</head>
+<body>
+    <a href="../../../index.html" class="back-btn">Inicio</a>
+
+    <header>
+        <span class="eyebrow">✦ Jueguitox</span>
+        <h1>Yo Nunca</h1>
+        <p class="header-sub">Confiesa · Bebe · Descúbrete</p>
+    </header>
+
+    <div class="contenedor">
+        <div class="instruccion">
+            <p>Si <strong>nunca</strong> lo has hecho: estás a salvo 🙌<br>
+            Si <strong>sí</strong> lo has hecho: bebe un sorbo 🍹 o suma un punto.</p>
+        </div>
+
+        <div class="contadores">
+            <div class="contador-card">
+                <p class="contador-nombre">Jugador 1</p>
+                <p class="contador-val" id="cnt1">0</p>
+                <p class="contador-sub">confesiones</p>
+                <div class="contador-btns">
+                    <button class="btn-cnt" onclick="cambiarCnt(1,1)">+</button>
+                    <button class="btn-cnt" onclick="cambiarCnt(1,-1)">−</button>
+                </div>
+            </div>
+            <div class="contador-card">
+                <p class="contador-nombre">Jugador 2</p>
+                <p class="contador-val" id="cnt2">0</p>
+                <p class="contador-sub">confesiones</p>
+                <div class="contador-btns">
+                    <button class="btn-cnt" onclick="cambiarCnt(2,1)">+</button>
+                    <button class="btn-cnt" onclick="cambiarCnt(2,-1)">−</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="nivel-row">
+            <span class="nivel-lbl">Nivel:</span>
+            <button class="btn-nivel activo" data-nivel="suave">Suave</button>
+            <button class="btn-nivel" data-nivel="picante">Picante 🌶</button>
+            <button class="btn-nivel" data-nivel="atrevido">Atrevido 🔥</button>
+        </div>
+
+        <div class="yn-card" id="yn-card">
+            <div class="yn-card-header">
+                <div class="yn-dot"></div>
+                <span class="yn-prefix">YO NUNCA HE...</span>
+                <span class="yn-num" id="yn-num">#1</span>
+            </div>
+            <div class="yn-card-body">
+                <p id="yn-texto"></p>
+            </div>
+        </div>
+
+        <div class="historial-wrap" id="historial-wrap" style="display:none">
+            <span class="historial-lbl">Historial de esta sesión</span>
+            <div class="historial" id="historial"></div>
+        </div>
+
+        <div class="btns-row">
+            <button class="btn-primary" id="btn-siguiente"><span>▶ Siguiente</span></button>
+            <button class="btn-reset" onclick="resetear()">↺ Reiniciar</button>
+        </div>
+    </div>
+
+    <footer>
+        <a href="../../../paginas/html/acerca.html">Acerca de</a>
+        <a href="../../../paginas/html/condiciones.html">Condiciones</a>
+        <a href="../../../paginas/html/privacidad.html">Privacidad</a>
+    </footer>
+
+    <script src="yonunca.js"></script>
+</body>
+</html>

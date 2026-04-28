@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartas — Jueguitox</title>
+    <link rel="shortcut icon" href="../../../assets/iconos/ico-cartas.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="cartas.css">
+</head>
+<body>
+    <a href="../../../index.html" class="back-btn">Inicio</a>
+
+    <header>
+        <span class="header-eyebrow">✦ Jueguitox</span>
+        <h1>Cartas</h1>
+        <p class="header-sub">Elige categoría o saca una al azar</p>
+    </header>
+
+    <div class="contenedor">
+        <p class="section-label">Categoría</p>
+        <div class="botones-cats">
+            <button id="desafio-btn"   class="btn-cat"><span>Desafío</span></button>
+            <button id="pregunta-btn"  class="btn-cat"><span>Pregunta Íntima</span></button>
+            <button id="fantasia-btn"  class="btn-cat"><span>Fantasía</span></button>
+            <button id="sensacion-btn" class="btn-cat"><span>Sensación</span></button>
+        </div>
+
+        <div id="contenedor-carta">
+            <div class="carta-header">
+                <div class="carta-tipo-dot" id="carta-dot"></div>
+                <span class="carta-tipo-label" id="carta-tipo-label">—</span>
+            </div>
+            <div class="carta-body">
+                <p id="texto-carta"></p>
+            </div>
+        </div>
+
+        <button id="sacar-carta-btn" class="btn-primary">
+            <span>🃏 Carta Aleatoria</span>
+        </button>
+    </div>
+
+    <footer>
+        <a href="../../../paginas/html/acerca.html">Acerca de</a>
+        <a href="../../../paginas/html/condiciones.html">Condiciones</a>
+        <a href="../../../paginas/html/privacidad.html">Privacidad</a>
+    </footer>
+
+    <script src="cartas.js"></script>
+</body>
+</html>
