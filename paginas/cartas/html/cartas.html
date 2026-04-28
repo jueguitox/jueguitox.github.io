@@ -3,35 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cartas</title>
+    <title>Cartas — Jueguitox</title>
     <link rel="shortcut icon" href="../../../assets/iconos/ico-cartas.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../css/cartas.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hot-pink: #ff2d6b;
+            --cyan: #00d4ff;
+            --purple: #bf5fff;
+            --orange: #ff6b35;
+            --mint: #00ffb3;
+            --deep: #08040a;
+            --surface: #1c0018;
+            --surface2: #160020;
+            --border: rgba(255,255,255,0.07);
+            --text: #fff0f5;
+            --muted: rgba(255,255,255,0.45);
+            --muted2: rgba(255,255,255,0.22);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background: var(--deep); color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            min-height: 100vh; display: flex; flex-direction: column;
+            align-items: center; overflow-x: hidden;
+        }
+        body::before {
+            content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            background:
+                radial-gradient(ellipse at 10% 10%, rgba(255,45,107,0.08) 0%, transparent 55%),
+                radial-gradient(ellipse at 90% 90%, rgba(191,95,255,0.06) 0%, transparent 55%);
+        }
+        .back-btn {
+            position: fixed; top: 18px; left: 18px; z-index: 100;
+            display: flex; align-items: center; gap: 6px;
+            text-decoration: none; font-size: 0.62rem; letter-spacing: 0.3em;
+            text-transform: uppercase; color: var(--muted);
+            padding: 7px 14px; border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 100px; background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(10px); transition: all 0.3s ease;
+        }
+        .back-btn:hover { color: var(--hot-pink); border-color: rgba(255,45,107,0.3); }
+        .back-btn::before { content: '←'; }
+
+        header {
+            position: relative; z-index: 10; width: 100%;
+            text-align: center; padding: 60px 20px 22px;
+            border-bottom: 1px solid var(--border);
+        }
+        .header-eyebrow {
+            font-size: 0.6rem; letter-spacing: 0.45em; text-transform: uppercase;
+            color: var(--hot-pink); opacity: 0.75; display: block; margin-bottom: 4px;
+        }
+        header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            letter-spacing: 0.06em; line-height: 1; color: var(--text);
+            text-shadow: 0 0 20px rgba(255,45,107,0.6), 0 0 60px rgba(255,45,107,0.3);
+        }
+        .header-sub {
+            font-size: 0.65rem; letter-spacing: 0.35em;
+            text-transform: uppercase; color: var(--muted2); margin-top: 5px;
+        }
+
+        .contenedor {
+            position: relative; z-index: 10; width: 100%; max-width: 600px;
+            padding: 36px 20px 50px;
+            display: flex; flex-direction: column; align-items: center; gap: 26px; flex: 1;
+        }
+
+        .section-label {
+            font-size: 0.58rem; letter-spacing: 0.45em;
+            text-transform: uppercase; color: var(--muted2);
+        }
+
+        /* CATEGORÍAS */
+        .botones-cats {
+            display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+        }
+
+        .btn-cat {
+            position: relative;
+            padding: 9px 20px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+            background: rgba(255,255,255,0.04); color: var(--muted);
+            border: 1px solid var(--border); border-radius: 100px;
+            cursor: pointer; transition: all 0.3s ease; text-transform: uppercase;
+            overflow: hidden;
+        }
+        .btn-cat::before {
+            content: ''; position: absolute; inset: 0; border-radius: 100px;
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .btn-cat span { position: relative; z-index: 1; transition: color 0.3s; }
+
+        /* Colores por categoría */
+        #desafio-btn  { --cat-c: var(--hot-pink); }
+        #pregunta-btn { --cat-c: var(--cyan); }
+        #fantasia-btn { --cat-c: var(--purple); }
+        #sensacion-btn{ --cat-c: var(--orange); }
+
+        .btn-cat::before { background: var(--cat-c); }
+        .btn-cat:hover { border-color: var(--cat-c); box-shadow: 0 0 18px color-mix(in srgb, var(--cat-c) 30%, transparent); }
+        .btn-cat:hover::before { opacity: 1; }
+        .btn-cat:hover span { color: #000; }
+        .btn-cat.activo { border-color: var(--cat-c); background: color-mix(in srgb, var(--cat-c) 15%, transparent); }
+        .btn-cat.activo span { color: var(--cat-c); }
+
+        /* CARTA */
+        #contenedor-carta {
+            width: 100%; max-width: 480px;
+            background: linear-gradient(145deg, var(--surface), var(--surface2));
+            border: 1px solid var(--border);
+            border-radius: 20px; overflow: hidden;
+            opacity: 0; transform: scale(0.92) translateY(20px);
+            transition: all 0.45s cubic-bezier(0.34,1.56,0.64,1);
+            display: none;
+        }
+        #contenedor-carta.visible {
+            display: block; opacity: 1; transform: scale(1) translateY(0);
+        }
+
+        .carta-header {
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; gap: 8px;
+        }
+        .carta-tipo-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--hot-pink);
+            box-shadow: 0 0 8px var(--hot-pink);
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .carta-tipo-label {
+            font-size: 0.58rem; letter-spacing: 0.35em;
+            text-transform: uppercase; font-weight: 700;
+            color: var(--hot-pink); transition: color 0.3s;
+        }
+        .carta-body { padding: 22px 22px 26px; }
+        #texto-carta {
+            font-size: 1.2rem; line-height: 1.65;
+            font-weight: 300; color: var(--text);
+        }
+
+        @keyframes cardFlip {
+            0%   { transform: scale(1) rotateY(0deg); }
+            50%  { transform: scale(0.97) rotateY(90deg); }
+            100% { transform: scale(1) rotateY(0deg); }
+        }
+        .flip-anim { animation: cardFlip 0.4s ease; }
+
+        /* BOTÓN ALEATORIO */
+        .btn-primary {
+            position: relative; padding: 13px 38px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem; letter-spacing: 0.15em;
+            background: transparent; color: var(--hot-pink);
+            border: 1.5px solid var(--hot-pink); border-radius: 100px;
+            cursor: pointer; overflow: hidden; transition: all 0.35s ease;
+        }
+        .btn-primary::before {
+            content: ''; position: absolute; inset: 0;
+            background: var(--hot-pink); opacity: 0; transition: opacity 0.35s;
+        }
+        .btn-primary span { position: relative; z-index: 1; transition: color 0.35s; }
+        .btn-primary:hover { box-shadow: 0 0 30px rgba(255,45,107,0.4); }
+        .btn-primary:hover::before { opacity: 1; }
+        .btn-primary:hover span { color: #fff; }
+        .btn-primary:active { transform: scale(0.97); }
+
+        footer {
+            width: 100%; position: relative; z-index: 10;
+            padding: 18px 20px; border-top: 1px solid var(--border);
+            text-align: center; display: flex; justify-content: center; gap: 20px;
+        }
+        footer a {
+            text-decoration: none; color: var(--muted2); font-size: 0.6rem;
+            letter-spacing: 0.2em; text-transform: uppercase; transition: color 0.3s;
+        }
+        footer a:hover { color: var(--hot-pink); }
+
+        @media (max-width: 500px) {
+            .btn-cat { font-size: 0.68rem; padding: 8px 14px; }
+            #texto-carta { font-size: 1.05rem; }
+        }
+    </style>
 </head>
 <body>
-    <div class="encabezado">
-        <h1 class="titulo">Cartas</h1>
-    </div>
+    <a href="../../../index.html" class="back-btn">Inicio</a>
+
+    <header>
+        <span class="header-eyebrow">✦ Jueguitox</span>
+        <h1>Cartas</h1>
+        <p class="header-sub">Elige categoría o saca una al azar</p>
+    </header>
 
     <div class="contenedor">
-        <!-- Carta (inicialmente oculta) -->
-        <div id="contenedor-carta" class="carta">
-            <div class="cuerpo">
+        <p class="section-label">Categoría</p>
+        <div class="botones-cats">
+            <button id="desafio-btn"   class="btn-cat"><span>Desafío</span></button>
+            <button id="pregunta-btn"  class="btn-cat"><span>Pregunta Íntima</span></button>
+            <button id="fantasia-btn"  class="btn-cat"><span>Fantasía</span></button>
+            <button id="sensacion-btn" class="btn-cat"><span>Sensación</span></button>
+        </div>
+
+        <div id="contenedor-carta">
+            <div class="carta-header">
+                <div class="carta-tipo-dot" id="carta-dot"></div>
+                <span class="carta-tipo-label" id="carta-tipo-label">—</span>
+            </div>
+            <div class="carta-body">
                 <p id="texto-carta"></p>
             </div>
         </div>
 
-        <!-- Botones en fila -->
-        <div class="botones">
-            <button id="desafio-btn" class="boton">Desafío</button>
-            <button id="pregunta-btn" class="boton">Pregunta Íntima</button>
-            <button id="fantasia-btn" class="boton">Fantasía</button>
-            <button id="sensacion-btn" class="boton">Sensación</button>
-        </div>
-
-        <!-- Botón de carta aleatoria -->
-        <button id="sacar-carta-btn" class="boton boton-grande">Sacar Carta Aleatoria</button>
+        <button id="sacar-carta-btn" class="btn-primary">
+            <span>🃏 Carta Aleatoria</span>
+        </button>
     </div>
 
-    <script src="../js/cartas.js"></script>
+    <footer>
+        <a href="../../../paginas/html/acerca.html">Acerca de</a>
+        <a href="../../../paginas/html/condiciones.html">Condiciones</a>
+        <a href="../../../paginas/html/privacidad.html">Privacidad</a>
+    </footer>
+
+    <script>
+        const catColors = {
+            "Desafío":  { color: '#ff2d6b', dot: '#ff2d6b' },
+            "Pregunta": { color: '#00d4ff', dot: '#00d4ff' },
+            "Fantasía": { color: '#bf5fff', dot: '#bf5fff' },
+            "Sensación":{ color: '#ff6b35', dot: '#ff6b35' },
+        };
+
+        fetch('../../../assets/json/cartas.json')
+            .then(r => r.json())
+            .then(data => {
+                const cartas = data;
+                const botones = {
+                    "Desafío":   document.getElementById('desafio-btn'),
+                    "Pregunta":  document.getElementById('pregunta-btn'),
+                    "Fantasía":  document.getElementById('fantasia-btn'),
+                    "Sensación": document.getElementById('sensacion-btn'),
+                };
+                const contenedorCarta = document.getElementById('contenedor-carta');
+                const textoCarta      = document.getElementById('texto-carta');
+                const tipoLabel       = document.getElementById('carta-tipo-label');
+                const tipoDot         = document.getElementById('carta-dot');
+
+                Object.keys(botones).forEach(tipo => {
+                    botones[tipo].addEventListener('click', () => {
+                        Object.values(botones).forEach(b => b.classList.remove('activo'));
+                        botones[tipo].classList.add('activo');
+                        mostrarCarta(tipo);
+                    });
+                });
+
+                document.getElementById('sacar-carta-btn').addEventListener('click', () => {
+                    const tipos = Object.keys(cartas);
+                    const tipo = tipos[Math.floor(Math.random() * tipos.length)];
+                    Object.entries(botones).forEach(([t,b]) => b.classList.toggle('activo', t === tipo));
+                    mostrarCarta(tipo);
+                });
+
+                function mostrarCarta(tipo) {
+                    const lista = cartas[tipo];
+                    if (!lista?.length) return;
+                    const txt = lista[Math.floor(Math.random() * lista.length)];
+                    textoCarta.textContent = txt;
+                    tipoLabel.textContent = tipo;
+                    const c = catColors[tipo] || { color: '#ff2d6b', dot: '#ff2d6b' };
+                    tipoLabel.style.color = c.color;
+                    tipoDot.style.background = c.dot;
+                    tipoDot.style.boxShadow = `0 0 8px ${c.dot}`;
+
+                    if (!contenedorCarta.classList.contains('visible')) {
+                        contenedorCarta.classList.add('visible');
+                    }
+                    contenedorCarta.classList.remove('flip-anim');
+                    void contenedorCarta.offsetWidth;
+                    contenedorCarta.classList.add('flip-anim');
+                }
+            })
+            .catch(err => console.error('Error:', err));
+    </script>
 </body>
 </html>
