@@ -1,9 +1,9 @@
 document.body.style.opacity = 0;
         setTimeout(() => { document.body.style.transition="opacity 0.8s ease"; document.body.style.opacity=1; }, 50);
-
+ 
         const año = new Date().getFullYear();
         document.getElementById("texto-footer").innerHTML = `&copy; ${año} Todos los derechos reservados.`;
-
+ 
         document.querySelectorAll('.game-card').forEach(card => {
             card.addEventListener('mousemove', e => {
                 const r = card.getBoundingClientRect();
