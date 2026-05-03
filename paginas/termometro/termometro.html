@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termómetro — Jueguitox</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="termometro.css">
+</head>
+<body>
+    <a href="../../../index.html" class="back-btn">Inicio</a>
+
+    <header>
+        <span class="eyebrow">✦ Jueguitox</span>
+        <h1>Termómetro</h1>
+        <p class="header-sub">Empieza suave · La temperatura sube · Sin vuelta atrás</p>
+    </header>
+
+    <div class="contenedor">
+
+        <!-- TERMÓMETRO VISUAL -->
+        <div class="termo-wrap">
+            <div class="termo-labels" id="termo-labels"></div>
+            <div class="termo-tube">
+                <div class="termo-tube-inner">
+                    <div class="termo-fill" id="termo-fill"></div>
+                </div>
+                <div class="termo-bulb">
+                    <div class="termo-bulb-inner" id="termo-bulb-inner"></div>
+                </div>
+            </div>
+            <div class="termo-nivel-badge" id="termo-nivel-badge">Nivel 1</div>
+        </div>
+
+        <!-- NIVEL ACTUAL INFO -->
+        <div class="nivel-info" id="nivel-info">
+            <span class="nivel-info-num" id="nivel-num">1</span>
+            <div class="nivel-info-right">
+                <span class="nivel-info-nombre" id="nivel-nombre">Calentando motores</span>
+                <span class="nivel-info-desc" id="nivel-desc">Nivel suave</span>
+            </div>
+        </div>
+
+        <!-- RETO CARD -->
+        <div class="reto-card" id="reto-card">
+            <div class="reto-card-header">
+                <div class="reto-dot" id="reto-dot"></div>
+                <span class="reto-lbl" id="reto-lbl">Reto nivel 1</span>
+                <span class="reto-num" id="reto-num">#0</span>
+            </div>
+            <div class="reto-body">
+                <p id="reto-texto">Pulsa "Siguiente reto" para comenzar en el nivel 1.</p>
+            </div>
+        </div>
+
+        <!-- HISTORIAL DEL NIVEL -->
+        <div class="historial-wrap" id="historial-wrap" style="display:none">
+            <span class="historial-lbl" id="historial-lbl">Retos completados en este nivel</span>
+            <div class="historial-dots" id="historial-dots"></div>
+        </div>
+
+        <!-- CONTROLES -->
+        <div class="btns-row">
+            <button class="btn-primary" id="btn-siguiente"><span>🌡️ Siguiente reto</span></button>
+            <button class="btn-subir" id="btn-subir">⬆ Subir nivel</button>
+        </div>
+        <button class="btn-reset" id="btn-reset">↺ Empezar desde el nivel 1</button>
+
+        <!-- TOPE MODAL -->
+        <div class="tope-overlay" id="tope-overlay">
+            <div class="tope-modal">
+                <div class="tope-icon">🌋</div>
+                <h2 class="tope-titulo">¡Nivel máximo!</h2>
+                <p class="tope-sub">Habéis llegado al punto más alto. Ya no hay retorno. Que empiece la noche. 🔥</p>
+                <button class="btn-primary" id="btn-tope-ok"><span>✦ Seguir en nivel máximo</span></button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <a href="../../../paginas/html/acerca.html">Acerca de</a>
+        <a href="../../../paginas/html/condiciones.html">Condiciones</a>
+        <a href="../../../paginas/html/privacidad.html">Privacidad</a>
+    </footer>
+
+    <script src="termometro.js"></script>
+</body>
+</html>

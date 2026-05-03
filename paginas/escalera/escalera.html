@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escalera — Jueguitox</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="escalera.css">
+</head>
+<body>
+    <a href="../../../index.html" class="back-btn">Inicio</a>
+
+    <header>
+        <span class="eyebrow">✦ Jueguitox</span>
+        <h1>Escalera</h1>
+        <p class="header-sub">Lanza el dado · Avanza · Cumple retos</p>
+    </header>
+
+    <div class="contenedor">
+
+        <!-- TURNO Y PUNTOS -->
+        <div class="jugadores-row">
+            <div class="jugador-card" id="jc-0">
+                <div class="jc-ficha" id="ficha-0">J1</div>
+                <div class="jc-info">
+                    <span class="jc-nombre">Jugador 1</span>
+                    <span class="jc-pos" id="jc-pos-0">Casilla 0</span>
+                </div>
+            </div>
+            <div class="jugador-card" id="jc-1">
+                <div class="jc-ficha jc-ficha-2" id="ficha-1">J2</div>
+                <div class="jc-info">
+                    <span class="jc-nombre">Jugador 2</span>
+                    <span class="jc-pos" id="jc-pos-1">Casilla 0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABLERO -->
+        <div class="tablero-wrap">
+            <canvas id="tablero-canvas" width="320" height="320"></canvas>
+        </div>
+
+        <!-- DADO -->
+        <div class="dado-area">
+            <div class="dado-display" id="dado-display">
+                <span id="dado-cara">?</span>
+            </div>
+            <div class="dado-turno" id="dado-turno">Turno de Jugador 1</div>
+        </div>
+
+        <!-- RETO CARD -->
+        <div class="reto-card" id="reto-card" style="display:none">
+            <div class="reto-header">
+                <div class="reto-dot" id="reto-dot"></div>
+                <span class="reto-tipo" id="reto-tipo">Reto</span>
+            </div>
+            <div class="reto-body">
+                <p id="reto-texto"></p>
+            </div>
+        </div>
+
+        <!-- CONTROLES -->
+        <div class="btns-row">
+            <button class="btn-primary" id="btn-lanzar"><span>🎲 Lanzar dado</span></button>
+            <button class="btn-secondary" id="btn-reset">↺ Nueva partida</button>
+        </div>
+
+        <!-- WIN -->
+        <div class="win-overlay" id="win-overlay">
+            <div class="win-modal">
+                <div class="win-icon">🏆</div>
+                <h2 class="win-titulo" id="win-titulo">¡Ganador!</h2>
+                <p class="win-sub" id="win-sub">Ha llegado al final primero.</p>
+                <p class="win-premio">Premio: elige cualquier reto de los otros juegos y el otro debe cumplirlo.</p>
+                <button class="btn-primary" id="btn-win-reset"><span>↺ Jugar de nuevo</span></button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <a href="../../../paginas/html/acerca.html">Acerca de</a>
+        <a href="../../../paginas/html/condiciones.html">Condiciones</a>
+        <a href="../../../paginas/html/privacidad.html">Privacidad</a>
+    </footer>
+
+    <script src="escalera.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Picante — Jueguitox</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="memory.css">
+</head>
+<body>
+    <a href="../../../index.html" class="back-btn">Inicio</a>
+
+    <header>
+        <span class="eyebrow">✦ Jueguitox</span>
+        <h1>Memory Picante</h1>
+        <p class="header-sub">Encuentra las parejas · Gana retos</p>
+    </header>
+
+    <div class="contenedor">
+
+        <!-- STATS BAR -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-lbl">Parejas</span>
+                <span class="stat-val" id="stat-parejas">0/8</span>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="stat-item">
+                <span class="stat-lbl">Intentos</span>
+                <span class="stat-val" id="stat-intentos">0</span>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="stat-item">
+                <span class="stat-lbl">Tiempo</span>
+                <span class="stat-val" id="stat-tiempo">0s</span>
+            </div>
+        </div>
+
+        <!-- NIVEL -->
+        <div class="nivel-row">
+            <span class="nivel-lbl">Nivel:</span>
+            <button class="btn-nivel activo" data-nivel="suave">Suave</button>
+            <button class="btn-nivel" data-nivel="picante">Picante 🌶</button>
+            <button class="btn-nivel" data-nivel="atrevido">Atrevido 🔥</button>
+        </div>
+
+        <!-- TABLERO -->
+        <div class="tablero" id="tablero"></div>
+
+        <!-- RETO MODAL -->
+        <div class="reto-overlay" id="reto-overlay">
+            <div class="reto-modal">
+                <div class="reto-modal-header">
+                    <span class="reto-emoji" id="reto-emoji"></span>
+                    <span class="reto-titulo">¡Pareja encontrada!</span>
+                </div>
+                <p class="reto-texto" id="reto-texto"></p>
+                <button class="btn-primary" id="reto-ok"><span>✦ Aceptado</span></button>
+            </div>
+        </div>
+
+        <!-- WIN MODAL -->
+        <div class="win-overlay" id="win-overlay">
+            <div class="win-modal">
+                <div class="win-icon">🎉</div>
+                <h2 class="win-titulo">¡Completado!</h2>
+                <div class="win-stats">
+                    <div class="win-stat"><span class="win-stat-val" id="win-intentos">0</span><span class="win-stat-lbl">intentos</span></div>
+                    <div class="win-stat"><span class="win-stat-val" id="win-tiempo">0s</span><span class="win-stat-lbl">tiempo</span></div>
+                </div>
+                <button class="btn-primary" id="btn-reiniciar"><span>↺ Jugar de nuevo</span></button>
+            </div>
+        </div>
+
+        <button class="btn-secondary" id="btn-nueva-partida">↺ Nueva partida</button>
+    </div>
+
+    <footer>
+        <a href="../../../paginas/html/acerca.html">Acerca de</a>
+        <a href="../../../paginas/html/condiciones.html">Condiciones</a>
+        <a href="../../../paginas/html/privacidad.html">Privacidad</a>
+    </footer>
+
+    <script src="memory.js"></script>
+</body>
+</html>

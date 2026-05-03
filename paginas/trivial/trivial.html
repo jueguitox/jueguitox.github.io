@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivial Íntimo — Jueguitox</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="trivial.css">
+</head>
+<body>
+    <a href="../../../index.html" class="back-btn">Inicio</a>
+
+    <header>
+        <span class="eyebrow">✦ Jueguitox</span>
+        <h1>Trivial Íntimo</h1>
+        <p class="header-sub">¿Cuánto sabéis el uno del otro?</p>
+    </header>
+
+    <div class="contenedor">
+
+        <!-- SCORES -->
+        <div class="scores-row">
+            <div class="score-chip" id="sc-0">
+                <span class="sc-nombre">Jugador 1</span>
+                <span class="sc-val" id="pts-0">0</span>
+            </div>
+            <div class="score-sep">·</div>
+            <div class="score-chip" id="sc-1">
+                <span class="sc-nombre">Jugador 2</span>
+                <span class="sc-val" id="pts-1">0</span>
+            </div>
+        </div>
+
+        <!-- TURNO -->
+        <div class="turno-bar" id="turno-bar">
+            <span class="turno-icon">🎯</span>
+            <span class="turno-txt" id="turno-txt">Turno de Jugador 1</span>
+            <span class="pregunta-num" id="pregunta-num">#1</span>
+        </div>
+
+        <!-- PROGRESS -->
+        <div class="progress-wrap">
+            <div class="progress-track">
+                <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+            </div>
+            <span class="progress-lbl" id="progress-lbl">0 / 20</span>
+        </div>
+
+        <!-- CARTA PREGUNTA -->
+        <div class="pregunta-card" id="pregunta-card">
+            <div class="pregunta-cat" id="pregunta-cat">—</div>
+            <p class="pregunta-texto" id="pregunta-texto">Pulsa "Siguiente pregunta" para empezar</p>
+        </div>
+
+        <!-- OPCIONES -->
+        <div class="opciones-grid" id="opciones-grid"></div>
+
+        <!-- FEEDBACK -->
+        <div class="feedback" id="feedback"></div>
+
+        <!-- PENITENCIA -->
+        <div class="penitencia-card" id="penitencia-card" style="display:none">
+            <div class="peni-header">
+                <span class="peni-dot"></span>
+                <span class="peni-lbl">Penitencia por fallar</span>
+            </div>
+            <p class="peni-texto" id="peni-texto"></p>
+        </div>
+
+        <!-- CONTROLES -->
+        <div class="btns-row">
+            <button class="btn-primary" id="btn-siguiente"><span>▶ Siguiente pregunta</span></button>
+            <button class="btn-secondary" id="btn-reset">↺ Reiniciar</button>
+        </div>
+
+        <!-- WIN -->
+        <div class="win-overlay" id="win-overlay">
+            <div class="win-modal">
+                <div class="win-trophy">🏆</div>
+                <h2 class="win-titulo" id="win-titulo">¡Ganador!</h2>
+                <p class="win-sub" id="win-sub"></p>
+                <button class="btn-primary" id="btn-win-reset"><span>↺ Jugar de nuevo</span></button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <a href="../../../paginas/html/acerca.html">Acerca de</a>
+        <a href="../../../paginas/html/condiciones.html">Condiciones</a>
+        <a href="../../../paginas/html/privacidad.html">Privacidad</a>
+    </footer>
+
+    <script src="trivial.js"></script>
+</body>
+</html>
